@@ -170,7 +170,6 @@ const updateFirebase = () => {
 	var db = admin.database();
     var ref = firebase.database().ref('Point/121');
 	ref.transaction(function(currentClicks) {
-  		// If node/clicks has never been set, currentRank will be `null`.
   		return (currentClicks || 0) + 1;
 		});
 	};

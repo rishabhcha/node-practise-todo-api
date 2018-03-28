@@ -1,0 +1,31 @@
+protected override void OnPaint(PaintEventArgs pe)
+{
+	Font fnt = new Font("Verdana", 16);
+	LinearGradientBrush lBrush = new LinearGradientBrush
+				(rect, Color.Red, Color.Yellow, 
+				LinearGradientMode.BackwardDiagonal);
+	Graphics g = pe.Graphics;
+	g.DrawString("Chess Board By Rishabh Chandel\n15BIT0242", fnt, new SolidBrush(Color.BLue), 30,10);
+	int i;
+	for(i=0; i<8; i++){
+		for(j=0; j<8; j++){
+			if((i+j)%2!=0){
+				Rectangle rect = new Rectangle(50*i,50*j,50,50);  
+				g.FillRectangle(lBrush, rect); 
+			}
+		}
+	}
+
+	//king
+	Rectangle rect1 = new Rectangle(100, 100, 20, 100);
+	Rectangle rect2 = new Rectangle(50, 50, 100, 20);
+	Rectangle rect3 = new Rectangle(50, 100, 500, 1000);
+	Rectangle rect4 = new Rectangle(50, 400, 200, 1000);
+	Rectangle rect5 = new Rectangle(50, 1600, 500, 1000);
+
+	//rook
+	Rectangle rect6 = new Rectangle();
+	Rectangle rect7 = new Rectangle();
+	Rectangle rect8 = new Rectangle();
+
+}

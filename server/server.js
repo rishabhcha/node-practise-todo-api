@@ -10,6 +10,14 @@ var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("swach-6acf4-firebase-adminsdk-irq4a-233ae75a06.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://swach-6acf4.firebaseio.com"
+});
 
 var app = express();
 
@@ -148,6 +156,24 @@ app.delete('/users/me/token', authenticate, async (req, res) => {
         res.status(400).send();
     };
 });
+
+app.get('/firebase/update', authenticate, async (req, res) => {
+    try{
+        await updateFirebase();
+        res.status(200).send();
+    }catch(e){
+        res.status(400).send();
+    };
+});
+
+const updateFirebase = () => {
+	var db = admin.database();
+    var ref = firebase.database().ref('Point/121');
+	ref.transaction(function(currentClicks) {
+  		// If node/clicks has never been set, currentRank will be `null`.
+  		return (currentClicks || 0) + 1;
+		});
+	};
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
